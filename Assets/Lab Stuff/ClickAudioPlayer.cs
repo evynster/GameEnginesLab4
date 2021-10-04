@@ -11,11 +11,13 @@ public class ClickAudioPlayer : MonoBehaviour
     }
 
     private void OnEnable() {
-        ClickScore.clicked += PlayAudio;
+        PlayerController.zipLineAction += PlayAudio;
+        CreateLevel.generateAction += PlayAudio;
     }
 
     private void OnDisable() {
-        ClickScore.clicked -= PlayAudio;
+        PlayerController.zipLineAction -= PlayAudio;
+        CreateLevel.generateAction -= PlayAudio;
     }
 
     private void PlayAudio(){

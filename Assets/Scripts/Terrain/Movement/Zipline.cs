@@ -8,7 +8,6 @@ public class Zipline : MonoBehaviour
     public float zipTime = 0f;
     [HideInInspector]
     public GameObject zipEnd = null;
-
     void Start()
     {
         zipEnd = transform.parent.Find("ZiplineEnd").gameObject;

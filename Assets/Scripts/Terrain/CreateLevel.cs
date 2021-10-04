@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class CreateLevel : MonoBehaviour
 {
-    //temp fun variables
+
+    public static event System.Action generateAction;
+
     [HideInInspector]
-    public int generateAmount = 0;
+    public SingletonGeneration generateAmount;
 
     [SerializeField]
     private GameObject floor = null;
@@ -24,10 +26,9 @@ public class CreateLevel : MonoBehaviour
 
     private int[,] levelBaseData;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        
+        generateAmount = SingletonGeneration.Instance;
     }
 
     // Update is called once per frame
@@ -47,7 +48,8 @@ public class CreateLevel : MonoBehaviour
      */
     public void generateLevel()
     {
-        generateAmount++;
+        generateAction?.Invoke();
+        generateAmount.generations++;
         for(int i = levelstart.transform.childCount; i > 0; i--)
         {
             GameObject.Destroy(levelstart.transform.GetChild(i-1).gameObject);

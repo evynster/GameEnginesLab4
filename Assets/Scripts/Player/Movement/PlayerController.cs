@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
 {
     private CharacterController controller;
 
+    public static event System.Action zipLineAction;
+
     /*
      * menu data
      */
@@ -342,7 +344,7 @@ public class PlayerController : MonoBehaviour
                     if(hitInfo.collider.gameObject.name == ("Goal"))
                     {
                         hitInfo.collider.gameObject.SetActive(false);
-                        Debug.Log("It took you " + GameObject.FindGameObjectWithTag("Level").GetComponent<CreateLevel>().generateAmount + " level generations to get the goal!");
+                        Debug.Log("It took you " + GameObject.FindGameObjectWithTag("Level").GetComponent<CreateLevel>().generateAmount.generations + " level generations to get the goal!");
                     }
                 }
                 
@@ -472,6 +474,9 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator Zipline (GameObject Start, GameObject End)
     {
+        # region observer
+        zipLineAction?.Invoke();
+        # endregion
         float zipLineSpeed = 1/Start.GetComponent<Zipline>().zipTime;
         float zipLinePercentage = 0f;
         Vector3 startPos = Start.transform.position + new Vector3(0, -characterHeight, 0);//characterHeight will bite me in the distant future
